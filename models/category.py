@@ -12,8 +12,10 @@ class Category:
         Category.cnt_categories += 1
         Category.cnt_products += len(self.products)
 
-    def __eq__(self, other):
-        return (isinstance(other, Category) and
-                self.name == other.name and
-                self.description == other.description and
-                self.products == other.products)
+    def __eq__(self, other: object) -> bool:
+        return (
+            isinstance(other, Category)
+            and self.name == other.name
+            and self.description == other.description
+            and self.products == other.products
+        )
