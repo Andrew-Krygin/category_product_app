@@ -16,11 +16,18 @@ class Product:
 
     def __repr__(self) -> str:
         """
+        Возвращает информацию об объекте класса в режиме отладки (для разработчиков).
+        :return: Строка с информацией об объекте.
+        """
+        return f"{self.__class__.__name__}('{self.name}', '{self.description}', {self.price}, {self.quantity})"
+
+    def __str__(self) -> str:
+        """
         Возвращает строковое представление продукта.
-        Формат: (название, цена руб., остаток)
+        Формат: Название, цена руб., остаток.
         :return:Строка с информацией о продукте.
         """
-        return f"({self.name}, {self.__price} руб. Остаток: {self.quantity})"
+        return f"{self.name}, {self.__price} руб. Остаток: {self.quantity}"
 
     def __eq__(self, other: object) -> bool:
         """
@@ -35,6 +42,16 @@ class Product:
             and self.__price == other.__price
             and self.quantity == other.quantity
         )
+
+    def __add__(self, other: "Product") -> int | float:
+        """
+        Возвращает полную стоимость всех товаров на складе.
+        :param other: Объект класса Product.
+        :return: Полная стоимость всех товаров на складе.
+        """
+        if isinstance(other, Product):
+            return self.quantity * self.__price + other.quantity * other.__price
+        return NotImplemented
 
     @property
     def price(self) -> float:
