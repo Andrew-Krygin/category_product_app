@@ -1,5 +1,3 @@
-import copy
-
 import pytest
 
 from models.category import Category
@@ -7,31 +5,21 @@ from models.product import Product
 from tests.tests_data.data_for_models import list_products
 
 
-@pytest.fixture
-def test_category() -> Category:
-    Category.cnt_categories = 0
-    Category.cnt_products = 0
-
-    fresh_products = copy.deepcopy(list_products)
-
-    return Category("Смартфоны", "Смартфоны, лучшее что придумало человечество.", fresh_products)
-
-
 class TestCategory:
-    def test_init_category(self, test_category: Category) -> None:
-        assert isinstance(test_category, Category)
-        assert test_category.name == "Смартфоны"
-        assert test_category.description == "Смартфоны, лучшее что придумало человечество."
-        assert test_category.cnt_categories == 1
-        assert test_category.cnt_products == len(list_products)
+    def test_init_category(self, sample_category: Category) -> None:
+        assert isinstance(sample_category, Category)
+        assert sample_category.name == "Смартфоны"
+        assert sample_category.description == "Смартфоны, лучшее что придумало человечество."
+        assert sample_category.cnt_categories == 1
+        assert sample_category.cnt_products == len(list_products)
 
-    def test_products(self, test_category: Category) -> None:
-        assert test_category.products == list_products
-        assert isinstance(test_category.products, list)
+    def test_products(self, sample_category: Category) -> None:
+        assert sample_category.products == list_products
+        assert isinstance(sample_category.products, list)
 
-    def test_add_products(self, test_category: Category) -> None:
-        test_category.add_product(Product("Banana", "Ripe banana", 2.0, 20))
-        assert test_category.cnt_products == 4
+    def test_add_products(self, sample_category: Category) -> None:
+        sample_category.add_product(Product("Banana", "Ripe banana", 2.0, 20))
+        assert sample_category.cnt_products == 4
 
     @pytest.mark.parametrize(
         "input_data, ex_res, ex_cnt, ex_price",
@@ -42,14 +30,18 @@ class TestCategory:
         ],
     )
     def test_product_exists(
-        self, test_category: Category, input_data: Product, ex_res: bool, ex_cnt: int, ex_price: float
+        self, sample_category: Category, input_data: Product, ex_res: bool, ex_cnt: int, ex_price: float
     ) -> None:
-        assert test_category.product_exists(input_data) == ex_res
+        assert sample_category.product_exists(input_data) == ex_res
 
-        found_product = next((prod for prod in test_category.products if prod.name == input_data.name), None)
+        found_product = next((prod for prod in sample_category.products if prod.name == input_data.name), None)
         if ex_res:
             assert found_product is not None
             assert found_product.quantity == ex_cnt
             assert found_product.price == ex_price
         else:
             assert found_product is None
+
+    def test__str__(self, sample_category: Category) -> None:
+        ex_res = "Смартфоны, количество продуктов: 27."
+        assert sample_category.__str__() == ex_res
