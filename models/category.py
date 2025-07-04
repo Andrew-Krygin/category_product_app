@@ -37,6 +37,14 @@ class Category:
             and self.__products == other.__products
         )
 
+    def __str__(self) -> str:
+        """
+        Возвращает строковое представление класса Category.
+        :return: Строка с названием объекта класса Category и общее количество продуктов в нем.
+        """
+        count_prod = sum(prod.quantity for prod in self.__products)
+        return f"{self.name}, количество продуктов: {count_prod}."
+
     @property
     def products(self) -> list:
         """

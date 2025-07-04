@@ -72,13 +72,12 @@
 ### Проверка покрытия кода
 - Запуск с отображением процента покрытия:
    ```bash
-   poetry run pytest
+   poetry run pytest --cov=src
    ```
 
 - Для генерации HTML-отчёта покрытия:
    ```bash
-   poetry run pytest
-
+   poetry run pytest --cov=src --cov=models --cov-report=html
    ```
 
 HTML-отчёт будет доступен по пути `htmlcov/index.html`.
