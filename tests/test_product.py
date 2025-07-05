@@ -4,7 +4,7 @@ from unittest.mock import patch
 import pytest
 
 from models.category import Category
-from models.product import Product
+from models.product import LawnGrass, Product, Smartphone
 from tests.tests_data.data_for_models import invalid_case_new_product, valid_case_new_product
 
 
@@ -107,3 +107,44 @@ class TestProduct:
     def test_invalid_add(self, sample_products: Product, input_data: Any) -> None:
         with pytest.raises(TypeError):
             sample_products + input_data
+
+
+class TestSmartphone:
+    def test_init_smartphone(self, sample_smartphone: Smartphone) -> None:
+        assert sample_smartphone.name == "Samsung Galaxy S23 Ultra"
+        assert sample_smartphone.description == "256GB, Серый цвет, 200MP камера"
+        assert sample_smartphone.price == 180000.0
+        assert sample_smartphone.quantity == 5
+        assert sample_smartphone.efficiency == 95.5
+        assert sample_smartphone.model == "S23 Ultra"
+        assert sample_smartphone.memory == 256
+        assert sample_smartphone.color == "Серый"
+
+    def test_add_smartphone(self, sample_smartphone: Smartphone) -> None:
+        smartphone_2 = Smartphone("Xiaomi Redmi Note 11", "1024GB, Синий", 31000.0, 14, 90.3, "Note 11", 1024, "Синий")
+        res = sample_smartphone + smartphone_2
+        assert res == 19
+
+    def test_add_smartphone_exception(self, sample_smartphone: Smartphone, sample_lawn_grass: LawnGrass) -> None:
+        with pytest.raises(TypeError):
+            sample_smartphone + sample_lawn_grass  # type: ignore
+
+
+class TestLawnGrass:
+    def test_init_lawn_grass(self, sample_lawn_grass: LawnGrass) -> None:
+        assert sample_lawn_grass.name == "Газонная трава"
+        assert sample_lawn_grass.description == "Элитная трава для газона"
+        assert sample_lawn_grass.price == 500.0
+        assert sample_lawn_grass.quantity == 20
+        assert sample_lawn_grass.country == "Россия"
+        assert sample_lawn_grass.germination_period == "7 дней"
+        assert sample_lawn_grass.color == "Зеленый"
+
+    def test_add_lawn_grass(self, sample_lawn_grass: LawnGrass) -> None:
+        grass2 = LawnGrass("Газонная трава 2", "Выносливая трава", 450.0, 15, "США", "5 дней", "Темно-зеленый")
+        res = sample_lawn_grass + grass2
+        assert res == 35
+
+    def test_add_lawn_grass_exception(self, sample_lawn_grass: LawnGrass, sample_smartphone: Smartphone) -> None:
+        with pytest.raises(TypeError):
+            sample_lawn_grass + sample_smartphone  # type: ignore
