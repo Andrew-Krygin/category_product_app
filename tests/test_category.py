@@ -1,7 +1,7 @@
 import pytest
 
 from models.category import Category
-from models.product import Product
+from models.product import LawnGrass, Product, Smartphone
 from tests.tests_data.data_for_models import list_products
 
 
@@ -16,6 +16,33 @@ class TestCategory:
     def test_products(self, sample_category: Category) -> None:
         assert sample_category.products == list_products
         assert isinstance(sample_category.products, list)
+
+    def test_add_smartphone(self, sample_category: Category) -> None:
+        smartphone = Smartphone("Xiaomi Redmi Note 11", "1024GB, Синий", 31000.0, 14, 90.3, "Note 11", 1024, "Синий")
+        sample_category.add_product(smartphone)
+        assert sample_category.cnt_products == 4
+
+    def test_add_lawn_grass(self, sample_category: Category) -> None:
+        grass = LawnGrass("Газонная трава 2", "Выносливая трава", 450.0, 15, "США", "5 дней", "Темно-зеленый")
+        sample_category.add_product(grass)
+        assert sample_category.cnt_products == 4
+
+    @pytest.mark.parametrize(
+        "input_data",
+        [
+            Category(
+                "Смартфоны",
+                "Смартфоны, как средство не только "
+                "коммуникации, но и получения дополнительных функций для удобства жизни",
+                [
+                    Product("Iphone 15", "512GB, Gray space", 210000.0, 8),
+                ],
+            ),
+        ],
+    )
+    def test_add_product_exception(self, sample_category: Category, input_data: Category) -> None:
+        with pytest.raises(TypeError):
+            sample_category.add_product(input_data)  # type: ignore
 
     def test_add_products(self, sample_category: Category) -> None:
         sample_category.add_product(Product("Banana", "Ripe banana", 2.0, 20))
