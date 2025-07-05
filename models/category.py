@@ -59,8 +59,11 @@ class Category:
         :param product: Продукт для добавления.
         :return: None.
         """
-        self.__products.append(product)
-        Category.cnt_products += 1
+        if isinstance(product, Product):
+            self.__products.append(product)
+            Category.cnt_products += 1
+        else:
+            raise TypeError
 
     def product_exists(self, new_product: Product) -> bool:
         """

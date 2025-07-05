@@ -94,3 +94,84 @@ class Product:
         if (name is None) or (description is None) or (price is None) or (quantity is None):
             raise ValueError("A key required to create an object of class Product is missing.")
         return cls(name, description, price, quantity)
+
+
+class Smartphone(Product):
+    """Класс для представления смартфонов. Наследник класса Product."""
+
+    def __init__(
+        self,
+        name: str,
+        description: str,
+        price: float,
+        quantity: int,
+        efficiency: float,
+        model: str,
+        memory: int,
+        color: str,
+    ):
+        """
+        Инициализация смартфона.
+        :param name: Название смартфона.
+        :param description: Описание смартфона.
+        :param price: Цена смартфона.
+        :param quantity: Количество смартфонов.
+        :param efficiency: Производительность смартфона.
+        :param model: Модель смартфона.
+        :param memory: Объем встроенной памяти.
+        :param color: Цвет смартфона.
+        """
+        super().__init__(name, description, price, quantity)
+        self.efficiency = efficiency
+        self.model = model
+        self.memory = memory
+        self.color = color
+
+    def __add__(self, other: "Product") -> int:
+        """
+        Складывает товары только из одинаковых классов продуктов.
+        :param other: Объект класса Smartphone.
+        :return: Общее количество товара класса Smartphone.
+        """
+        if type(other) is Smartphone:
+            return self.quantity + other.quantity
+        raise TypeError
+
+
+class LawnGrass(Product):
+    """Класс для представления травы для газона."""
+
+    def __init__(
+        self,
+        name: str,
+        description: str,
+        price: float,
+        quantity: int,
+        country: str,
+        germination_period: str,
+        color: str,
+    ):
+        """
+        Инициализация травы-газонной.
+        :param name: Название травы-газонной.
+        :param description: Описание травы-газонной.
+        :param price: Цена травы-газонной.
+        :param quantity: Количество травы-газонной.
+        :param country: Страна-производитель травы-газонной.
+        :param germination_period: Период прорастания травы-газонной.
+        :param color: Цвет травы-газонной.
+        """
+        super().__init__(name, description, price, quantity)
+        self.country = country
+        self.germination_period = germination_period
+        self.color = color
+
+    def __add__(self, other: "Product") -> int:
+        """
+        Складывает товары только из одинаковых классов продуктов.
+        :param other: Объект класса LawnGrass.
+        :return: Общее количество товара класса LawnGrass.
+        """
+        if type(other) is LawnGrass:
+            return self.quantity + other.quantity
+        raise TypeError
