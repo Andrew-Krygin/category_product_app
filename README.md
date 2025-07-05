@@ -6,7 +6,9 @@
 
 ## Структура проекта
 - **models/category**: Модуль содержит определение класса Category с атрибутами и подсчётом категорий и товаров.
-- **models/product**: Модуль содержит определение класса Product с основными свойствами товара.
+- **models/product**: Модуль содержит определение класса Product с основными свойствами товара, а также двух 
+  подклассов — Smartphone и LawnGrass.
+- **models/category_product_iterator**: Модуль содержит определение класса CategoryProductIterator с атрибутом и логикой итерации товаров внутри Category.
 - **src/loader**: Модуль для чтения данных из JSON-файла и создания объектов Category и Product.
 - **data/**: Директория для хранения JSON-файла.
 - **tests/**: Папка с тестами для проверки корректности работы классов и функций.
@@ -85,7 +87,7 @@ HTML-отчёт будет доступен по пути `htmlcov/index.html`.
 ### Структура тестов
 - Все тесты расположены в директории `tests/`.
 - Тестовые кейсы вынесены в папку `tests/tests_data/`.
-- Покрываются модули `models/category`, `models/product`.
+- Покрываются модули `models/category`, `models/product`, `models/category_product_iterator`.
 
 ## Авторы
 - [Andrew Krygin](https://github.com/Andrew-Krygin)
