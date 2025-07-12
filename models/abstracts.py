@@ -18,6 +18,8 @@ class BaseEntity(ABC):
 class BaseProduct(ABC):
     """Абстрактный базовый класс для всех продуктов."""
 
+    quantity: int
+
     @abstractmethod
     def __add__(self, other: "BaseProduct") -> int | float:
         """Сложение продуктов."""
