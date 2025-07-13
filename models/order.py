@@ -1,6 +1,7 @@
 from models.abstracts import BaseEntity
 from models.category import Category
 from models.product import Product
+from tests.tests_data.data_for_models import category_for_order
 
 
 class Order(BaseEntity):
@@ -40,7 +41,7 @@ class Order(BaseEntity):
 
         if self.product.quantity < self.quantity:
             raise ValueError(
-                f"Недостаточно товара '{self.product_name}' на складе."
+                f"Недостаточно товара '{self.product_name}' на складе.\n"
                 f"Доступно: {self.product.quantity}, запрошено: {self.quantity}."
             )
 
