@@ -3,8 +3,9 @@ import copy
 import pytest
 
 from models.category import Category
+from models.order import Order
 from models.product import LawnGrass, Product, Smartphone
-from tests.tests_data.data_for_models import list_products
+from tests.tests_data.data_for_models import category_for_order, list_products
 
 
 @pytest.fixture
@@ -32,3 +33,16 @@ def sample_smartphone() -> Smartphone:
 @pytest.fixture
 def sample_lawn_grass() -> LawnGrass:
     return LawnGrass("Газонная трава", "Элитная трава для газона", 500.0, 20, "Россия", "7 дней", "Зеленый")
+
+
+@pytest.fixture
+def sample_order() -> Order:
+    category_for_order_copy = copy.deepcopy(category_for_order)
+
+    return Order(
+        name="Заказ №1",
+        description="Покупка смартфона",
+        category=category_for_order_copy,
+        product_name="Iphone 15",
+        quantity=2,
+    )
