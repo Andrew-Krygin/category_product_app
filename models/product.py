@@ -19,6 +19,9 @@ class Product(MixinLogToConsole, BaseProduct):
         self.quantity = quantity
         super().__init__()
 
+        if self.quantity == 0:
+            raise ValueError("Товар с нулевым количеством не может быть добавлен.")
+
     def __repr__(self) -> str:
         """
         Возвращает информацию об объекте класса в режиме отладки (для разработчиков).
