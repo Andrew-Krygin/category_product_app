@@ -1,3 +1,4 @@
+from re import match
 from typing import Any, ContextManager
 from unittest.mock import patch
 
@@ -151,3 +152,9 @@ class TestLawnGrass:
     def test_add_lawn_grass_exception(self, sample_lawn_grass: LawnGrass, sample_smartphone: Smartphone) -> None:
         with pytest.raises(TypeError):
             sample_lawn_grass + sample_smartphone  # type: ignore
+
+    def test_quantity_zero(self, capsys: pytest.CaptureFixture) -> None:
+        with pytest.raises(ValueError, match="Товар с нулевым количеством не может быть добавлен."):
+            Product("Iphone 15", "512GB, Gray space", 31000.0, 0)
+            captured = capsys.readouterr()
+            assert captured.out == match
