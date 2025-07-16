@@ -1,10 +1,9 @@
+from models.abstracts import BaseEntity
 from models.product import Product
 
 
-class Category:
-    """
-    Класс для представления категории продуктов.
-    """
+class Category(BaseEntity):
+    """Класс для представления категории продуктов."""
 
     # Атрибуты класса.
     cnt_categories = 0
@@ -17,8 +16,7 @@ class Category:
         :param description: Описание категории.
         :param products: Список продуктов, относящихся к категории.
         """
-        self.name = name
-        self.description = description
+        super().__init__(name, description)
         self.__products = products
 
         Category.cnt_categories += 1

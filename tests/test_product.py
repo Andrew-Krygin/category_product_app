@@ -26,8 +26,11 @@ class TestProduct:
     @pytest.mark.parametrize(
         "input_price, ex_res",
         [
-            (0, "Цена не должна быть нулевая или отрицательная\n"),
-            (-23.0, "Цена не должна быть нулевая или отрицательная\n"),
+            (0, "Product(Iphone 15, 512GB, Gray space, 31000.0, 14)\nЦена не должна быть нулевая или отрицательная\n"),
+            (
+                -23.0,
+                "Product(Iphone 15, 512GB, Gray space, 31000.0, 14)\nЦена не должна быть нулевая или отрицательная\n",
+            ),
         ],
     )
     def test_price_setter_zero_and_below_zero(

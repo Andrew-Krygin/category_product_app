@@ -8,7 +8,11 @@
 - **models/category**: Модуль содержит определение класса Category с атрибутами и подсчётом категорий и товаров.
 - **models/product**: Модуль содержит определение класса Product с основными свойствами товара, а также двух 
   подклассов — Smartphone и LawnGrass.
+- **models/abstracts**: Модуль содержит определения абстрактных классов BaseEntity и BaseProduct.
 - **models/category_product_iterator**: Модуль содержит определение класса CategoryProductIterator с атрибутом и логикой итерации товаров внутри Category.
+- **models/mixins**: Модуль содержит определение класса MixinLogToConsole который выводит в консоль информацию о том, от какого класса и с какими параметрами был создан объект.
+- **models/order**: Модуль содержит определение класса Order, представляющий купленный товар, количество купленного 
+  товара и его сумму.
 - **src/loader**: Модуль для чтения данных из JSON-файла и создания объектов Category и Product.
 - **data/**: Директория для хранения JSON-файла.
 - **tests/**: Папка с тестами для проверки корректности работы классов и функций.
@@ -87,7 +91,8 @@ HTML-отчёт будет доступен по пути `htmlcov/index.html`.
 ### Структура тестов
 - Все тесты расположены в директории `tests/`.
 - Тестовые кейсы вынесены в папку `tests/tests_data/`.
-- Покрываются модули `models/category`, `models/product`, `models/category_product_iterator`.
+- Покрываются модули `models/category`, `models/product`, `models/category_product_iterator`, `models/abstracts`, 
+  `models/mixins`, `models/order`.
 
 ## Авторы
 - [Andrew Krygin](https://github.com/Andrew-Krygin)

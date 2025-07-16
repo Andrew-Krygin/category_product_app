@@ -1,4 +1,8 @@
-class Product:
+from models.abstracts import BaseProduct
+from models.mixins import MixinLogToConsole
+
+
+class Product(MixinLogToConsole, BaseProduct):
     """Класс для представления продуктов."""
 
     def __init__(self, name: str, description: str, price: float, quantity: int) -> None:
@@ -13,6 +17,7 @@ class Product:
         self.description = description
         self.__price = price
         self.quantity = quantity
+        super().__init__()
 
     def __repr__(self) -> str:
         """
@@ -43,7 +48,7 @@ class Product:
             and self.quantity == other.quantity
         )
 
-    def __add__(self, other: "Product") -> int | float:
+    def __add__(self, other: "BaseProduct") -> int | float:
         """
         Возвращает полную стоимость всех товаров на складе.
         :param other: Объект класса Product.
@@ -127,7 +132,7 @@ class Smartphone(Product):
         self.memory = memory
         self.color = color
 
-    def __add__(self, other: "Product") -> int:
+    def __add__(self, other: "BaseProduct") -> int:
         """
         Складывает товары только из одинаковых классов продуктов.
         :param other: Объект класса Smartphone.
@@ -166,7 +171,7 @@ class LawnGrass(Product):
         self.germination_period = germination_period
         self.color = color
 
-    def __add__(self, other: "Product") -> int:
+    def __add__(self, other: "BaseProduct") -> int:
         """
         Складывает товары только из одинаковых классов продуктов.
         :param other: Объект класса LawnGrass.
