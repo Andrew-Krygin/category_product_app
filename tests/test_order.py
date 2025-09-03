@@ -1,8 +1,11 @@
+from re import match
+
 import pytest
 
 from models.category import Category
 from models.order import Order
 from models.product import Product
+from models.zero_quantity_error import ZeroQuantityError
 from tests.tests_data.data_for_models import category_for_order, error_message_1, error_message_2
 
 
@@ -39,3 +42,9 @@ class TestOrder:
             "Стоимость: 420000.0 руб.\n"
             "Остаток на складе: 6 шт."
         )
+
+    def test_init_order_with_quantity_zero(self, capsys: pytest.CaptureFixture) -> None:
+        with pytest.raises(ZeroQuantityError, match="Количество товара-0"):
+            Order("Заказ №1", "Покупка телефона", category_for_order, "Iphone 15", 0)
+            captured = capsys.readouterr()
+            assert captured.out == match

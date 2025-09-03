@@ -51,6 +51,14 @@ class Category(BaseEntity):
         """
         return self.__products
 
+    @property
+    def middle_price(self) -> float:
+        """Функция подсчитывает средний ценник всех товаров."""
+        if not self.__products:
+            return 0.0
+        avg: float = round(sum(prod.price for prod in self.__products) / len(self.__products), 2)
+        return avg
+
     def add_product(self, product: Product) -> None:
         """
         Добавляет продукт в категорию и увеличивает счётчик продуктов.

@@ -72,3 +72,12 @@ class TestCategory:
     def test__str__(self, sample_category: Category) -> None:
         ex_res = "Смартфоны, количество продуктов: 27."
         assert sample_category.__str__() == ex_res
+
+    def test_middle_price(self, sample_category: Category) -> None:
+        middle_price = sample_category.middle_price
+        assert middle_price == 140333.33
+
+    def test_middle_price_empty_list_products(self) -> None:
+        cat1 = Category("Смартфоны", "Смартфоны, лучшее что придумало человечество.", [])
+        middle_price = cat1.middle_price
+        assert middle_price == 0.0

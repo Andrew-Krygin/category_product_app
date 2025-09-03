@@ -1,7 +1,7 @@
 from models.abstracts import BaseEntity
 from models.category import Category
 from models.product import Product
-from tests.tests_data.data_for_models import category_for_order
+from models.zero_quantity_error import ZeroQuantityError
 
 
 class Order(BaseEntity):
@@ -12,6 +12,10 @@ class Order(BaseEntity):
         self.category = category
         self.product_name = product_name
         self.quantity = quantity
+
+        if self.quantity == 0:
+            raise ZeroQuantityError
+
         self.product = self.find_product()
         self.cost = self.get_cost()
 
